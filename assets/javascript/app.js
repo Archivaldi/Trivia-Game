@@ -7,12 +7,10 @@ var correctAnswers = 0;
 var incorrectAnswers = 0;
 var unansweredQuestions = 0;
 
-var timerForDisplay = setInterval(timeDown, 1000);
-
 //reset timer for question
 function newTime() {
     questionTimer = 30;
-    $("span").text(questionTimer);
+    $("span").text(questionTimer + " Seconds");
 }
 
 //create brand new paragraphs for options on page
@@ -20,13 +18,8 @@ function createOptions() {
     for (var i = 0; i < options.length; i++) {
         $("div").append("<button>");
         $("div button:last-child").text(options[i].text);
+        $("div button:last-child").attr("class", "option");
     }
-}
-
-//set timer from 30 to 0
-function timeDown() {
-    questionTimer -= 1;
-    $("span").text(questionTimer);
 }
 
 //activate timer
@@ -70,15 +63,38 @@ function firstQuestion() {
 
 }
 
-firstQuestion();
+$("#start").on("click", function() {
+    $("div").append("<h1>");
+    $("h1").text("Totally Trivia Trivia!");
+    $("div").append("<h3>");
+    $("h3").text("Time remaining: ")
+    $("h3").append("<span>");
+    $("span").text(questionTimer + " Seconds")
+    $("div").append("<h2>");
+    $(this).remove();
+    var timerForDisplay = setInterval(timeDown, 1000);
+    firstQuestion();
 
-$("button").on("click", function () {
-    if ($(this).text() == answer) {
+    $(".option").on("click", function () {
+        if ($(this).text() == answer) {
+            $("h2").text("Correct answer was " + answer);
+            correctAnswers += 1;
+            clearInterval(timerForDisplay);
+        } else {
+            $("h2").text("Correct answer was " + answer);
+            incorrectAnswers =+ 1;
+        }
+    })
+
+    //set timer from 30 to 0
+function timeDown() {
+    if (questionTimer == 0) {
         $("h2").text("Correct answer was " + answer);
-        correctAnswers += 1;
+        unansweredQuestions += 1;
         clearInterval(timerForDisplay);
     } else {
-        $("h2").text("Correct answer was " + answer);
-        incorrectAnswers =+ 1;
+        questionTimer -= 1;
+        $("span").text(questionTimer + " Seconds");
+    }
     }
 })

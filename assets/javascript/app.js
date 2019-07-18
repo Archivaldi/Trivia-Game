@@ -72,7 +72,7 @@ $("#start").on("click", function () {
             $("h2").text("Nope!");
             $("div").append("<p>");
             $("p").text("Correct answer was " + answer);
-            incorrectAnswers = + 1;
+            incorrectAnswers += 1;
             clearInterval(timerForDisplay);
             $("button").remove();
             options = [];
@@ -89,6 +89,8 @@ $("#start").on("click", function () {
             unansweredQuestions += 1;
             clearInterval(timerForDisplay);
             $("button").remove();
+            options = [];
+            setTimeout(secondQuestion, 3*1000);
         } else {
             questionTimer -= 1;
             $("span").text(questionTimer + " Seconds");
@@ -101,6 +103,7 @@ $("#start").on("click", function () {
 function secondQuestion() {
     question = "Whadfgsdgf?"
     $("h2").text(question);
+    $("p").remove();
     var timerForDisplay = setInterval(timeDown, 1000);
 
     function timeDown() {
@@ -111,6 +114,8 @@ function secondQuestion() {
             unansweredQuestions += 1;
             clearInterval(timerForDisplay);
             $("button").remove();
+            options = [];
+            setTimeout(secondQuestion, 3*1000);
         } else {
             questionTimer -= 1;
             $("span").text(questionTimer + " Seconds");
@@ -142,7 +147,7 @@ function secondQuestion() {
             $("h2").text("Nope!");
             $("div").append("<p>");
             $("p").text("Correct answer was " + answer);
-            incorrectAnswers = + 1;
+            incorrectAnswers += 1;
             clearInterval(timerForDisplay);
             $("button").remove();
             options = [];
@@ -154,3 +159,10 @@ function secondQuestion() {
 }
 
 /////////////////////////////////Third Question ///////////////////////////////////////////////
+
+////////////////////////////////Finish Screen /////////////////////////////////////////////////
+
+function resultScreen(){
+    $("h2").text("All done! Here's how you did");
+
+}

@@ -57,21 +57,22 @@ $("#start").on("click", function() {
     $(this).remove();
     var timerForDisplay = setInterval(timeDown, 1000);
     firstQuestion();
-
-    $(".option").on("click", function () {
-        if ($(this).text() == answer) {
-            $("h2").text("Correct!");
-            correctAnswers += 1;
-            clearInterval(timerForDisplay);
-            $("button").remove();
-        } else {
-            $("h2").text("Nope!");
-            $("div").append("<p>");
-            $("p").text("Correct answer was " + answer);
-            incorrectAnswers =+ 1;
-            $("button").remove();
-        }
         timeDown();
+
+        $(".option").on("click", function () {
+            if ($(this).text() == answer) {
+                $("h2").text("Correct!");
+                correctAnswers += 1;
+                clearInterval(timerForDisplay);
+                $("button").remove();
+            } else {
+                $("h2").text("Nope!");
+                $("div").append("<p>");
+                $("p").text("Correct answer was " + answer);
+                incorrectAnswers =+ 1;
+                clearInterval(timerForDisplay);
+                $("button").remove();
+            }
     })
 
     //set timer from 30 to 0

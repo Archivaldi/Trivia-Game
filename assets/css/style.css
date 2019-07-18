@@ -1,0 +1,13 @@
+.option {
+    width: 20%;
+    text-align: center;
+    background-color: white;
+    border: none;
+    margin: 20px auto;
+    display: block;
+}
+
+.option:hover {
+    border: 5px solid blue;
+    background-color: aqua;
+}

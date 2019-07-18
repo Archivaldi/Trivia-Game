@@ -22,28 +22,11 @@ function createOptions() {
     }
 }
 
-//activate timer
 
-// question = "What's your name?";
-// $("h2").text(question);
-
-//
 function Option(str) {
     this.text = str;
 }
 
-
-// function initOptions() {
-//     var option1 = new Option ("Artur");
-//     var option2 = new Option ("Arasdf");
-//     var option3 = new Option ("asdfar");
-//     var option4 = new Option ("asdfasur");
-//     options.push(option1, option2, option3, option4);
-// }
-
-
-// initOptions();
-// createOptions();
 
 function firstQuestion() {
     question = "What library was created for CSS?"
@@ -77,21 +60,29 @@ $("#start").on("click", function() {
 
     $(".option").on("click", function () {
         if ($(this).text() == answer) {
-            $("h2").text("Correct answer was " + answer);
+            $("h2").text("Correct!");
             correctAnswers += 1;
             clearInterval(timerForDisplay);
+            $("button").remove();
         } else {
-            $("h2").text("Correct answer was " + answer);
+            $("h2").text("Nope!");
+            $("div").append("<p>");
+            $("p").text("Correct answer was " + answer);
             incorrectAnswers =+ 1;
+            $("button").remove();
         }
+        timeDown();
     })
 
     //set timer from 30 to 0
 function timeDown() {
     if (questionTimer == 0) {
-        $("h2").text("Correct answer was " + answer);
+        $("h2").text("Time is Out!");
+        $("div").append("<p>");
+        $("p").text("Correct answer was " + answer);
         unansweredQuestions += 1;
         clearInterval(timerForDisplay);
+        $("button").remove();
     } else {
         questionTimer -= 1;
         $("span").text(questionTimer + " Seconds");

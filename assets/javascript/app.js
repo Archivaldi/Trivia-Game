@@ -233,30 +233,137 @@
 
 // }
 
-var questions = [
+var correctAnswers = 0;
+var incorrectAnswers = 0;
+var unansweredQuestions = 0;
+var questionTimer;
+var counter = 0;
+
+function nextQuestion() {
+    if (counter == allQuestions.length - 1) {
+        resultScreen();
+    } else {
+        counter += 1;
+        createQuestion();
+    }
+}
+
+function resultScreen() {
+    $("button").remove();
+    $("h2").text("All done! Here's how you did:");
+    $("div").append("<p>");
+    $("div p:last-child").text("Correct answers: " + correctAnswers);
+    $("div").append("<p>");
+    $("div p:last-child").text("Incorrect answers: " + incorrectAnswers);
+    $("div").append("<p>");
+    $("div p:last-child").text("Unanswered: " + unansweredQuestions);
+    $("div").append("<button>");
+    $("button").text("Again?");
+    $("button").attr("id", "start");
+    $("#start").on("click", function () {
+        //clean div for every question
+        correctAnswers = 0;
+        incorrectAnswers = 0;
+        unansweredQuestions = 0;
+        counter = 0;
+    
+        $("div").empty();
+        $("div").append("<h1>");
+        $("h1").text("Totally Trivia Trivia!");
+        $("div").append("<h3>");
+        $("h3").text("Time remaining: ")
+        $("h3").append("<span>");
+        $("span").text(questionTimer + " Seconds")
+        $("div").append("<h2>");
+        createQuestion();
+})
+}
+
+function createQuestion() {
+    $("button").remove();
+    $("h2").text(allQuestions[counter].question);
+
+    for (var p = 0; p < allQuestions[counter].options.length; p++) {
+        $("div").append("<button>");
+        $("div button:last-child").text(allQuestions[counter].options[p]);
+        $("div button:last-child").attr("value", allQuestions[counter].options[p]);
+    }
+
+    $("button").on("click", function () {
+        var userChoice = $(this).val();
+        if (userChoice == allQuestions[counter].answer) {
+            correctAnswers += 1;
+            nextQuestion();
+        } else {
+            incorrectAnswers += 1;
+            nextQuestion();
+        }
+    })
+}
+
+var allQuestions = [
     {
         question: "What library was created for CSS",
         options: ["SF Public Library", "jQuery", "Bootstrap", "Library of Congress"],
-        correctAnswer: "Bootstrap",
+        answer: "Bootstrap",
     },
 
     {
         question: "Im a second question",
         options: ["SF Public Library", "jQuery", "Bootstrap", "Library of Congress"],
-        correctAnswer: "jQuery",
-    }
+        answer: "jQuery",
+    },
+    {
+        question: "Im a beetween question",
+        options: ["SF Public Library", "jQuery", "Bootstrap", "Library of Congress"],
+        answer: "jQuery",
+    },
+    {
+        question: "Im a third question",
+        options: ["SF Public Library", "jQuery", "Bootstrap", "Library of Congress"],
+        answer: "jQuery",
+    },
+    {
+        question: "Im a fourth question",
+        options: ["SF Public Library", "jQuery", "Bootstrap", "Library of Congress"],
+        answer: "jQuery",
+    },
+    {
+        question: "Im a fifth question",
+        options: ["SF Public Library", "jQuery", "Bootstrap", "Library of Congress"],
+        answer: "jQuery",
+    },
 ];
-$("#start").on("click", function(){
-    for (var i = 0; i < questions.length; i++) {
-        $("div").empty();
-        $("div").append("<h2>");
-        $("h2").text(questions[i].question);
 
-        for (var p = 0; p < questions[i].options.length; p++) {
-            $("div").append("<button>");
-            $("div button:last-child").text(questions[i].options[p]);
+$("#start").on("click", function () {
+    //clean div for every question
+    correctAnswers = 0;
+    incorrectAnswers = 0;
+    unansweredQuestions = 0;
+    counter = 0;
+
+    $("div").empty();
+    $("div").append("<h1>");
+    $("h1").text("Totally Trivia Trivia!");
+    $("div").append("<h3>");
+    $("h3").text("Time remaining: ")
+    $("h3").append("<span>");
+    $("span").text(questionTimer + " Seconds")
+    $("div").append("<h2>");
+    createQuestion();
+
+    function timeDown() {
+        if (questionTimer == 0) {
+            $("h2").text("Time is Out!");
+            $("div").append("<p>");
+            $("p").text("Correct answer was " + answer);
+            unansweredQuestions += 1;
+            clearInterval(timerForDisplay);
+            $("button").remove();
+            options = [];
+        } else {
+            questionTimer -= 1;
+            $("span").text(questionTimer + " Seconds");
         }
-        
-
-    }  
+    }
 })

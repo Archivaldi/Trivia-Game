@@ -1,277 +1,66 @@
-// var question;
-// var options = [];
-// var questionTimer = 30;
-// var answer;
-// var correctAnswers = 0;
-// var incorrectAnswers = 0;
-// var unansweredQuestions = 0;
+var correctAnswers = 0;    //create var for counting correct questions 
+var incorrectAnswers = 0;  //create var for counting incorrect questions 
+var unansweredQuestions = 0; //create var for counting unasnswered questions 
+var questionTimer;          //var for setting timer
+var counter = 0;            //var for switching between questions
 
 
-
-// function Option(str) {
-//     this.text = str;
-// }
-
-// //reset timer for question
-// function newTime() {
-//     questionTimer = 30;
-//     $("span").text(questionTimer + " Seconds");
-// }
-
-// //function for creating options on a screen
-// function createOptions() {
-//     for (var i = 0; i < options.length; i++) {
-//         $("div").append("<button>");
-//         $("div button:last-child").text(options[i].text);
-//         $("div button:last-child").attr("class", "option");
-//     }
-// }
-
-
-// ///////////////////////////////////////////////////////First Question////////////////////////////////////////////////////////////////
-// function firstQuestion() {
-//     question = "What library was created for CSS?"
-//     $("h2").text(question);
-
-//     function initOptions() {
-//         var option1 = new Option("SF Public Library");
-//         var option2 = new Option("jQuery");
-//         var option3 = new Option("Bootstrap");
-//         var option4 = new Option("Library of Congress");
-//         options.push(option1, option2, option3, option4);
-//     }
-//     initOptions();
-//     createOptions();
-//     answer = options[2].text;
-//     newTime();
-
-// }
-
-// //First screen. We push "Start" and then the game starts
-// $("#start").on("click", function () {
-//     $("div").append("<h1>");
-//     $("h1").text("Totally Trivia Trivia!");
-//     $("div").append("<h3>");
-//     $("h3").text("Time remaining: ")
-//     $("h3").append("<span>");
-//     $("span").text(questionTimer + " Seconds")
-//     $("div").append("<h2>");
-//     $(this).remove();
-//     var timerForDisplay = setInterval(timeDown, 1000);
-//     firstQuestion();
-//     timeDown();
-
-//     $(".option").on("click", function () {
-//         if ($(this).text() == answer) {
-//             $("h2").text("Correct!");
-//             correctAnswers += 1;
-//             clearInterval(timerForDisplay);
-//             $("button").remove();
-//             options = [];
-//             setTimeout(secondQuestion, 3 * 1000);
-//         } else {
-//             $("h2").text("Nope!");
-//             $("div").append("<p>");
-//             $("p").text("Correct answer was " + answer);
-//             incorrectAnswers += 1;
-//             clearInterval(timerForDisplay);
-//             $("button").remove();
-//             options = [];
-//             setTimeout(secondQuestion, 3 * 1000);
-//         }
-//     })
-
-//     //set timer from 30 to 0
-//     function timeDown() {
-//         if (questionTimer == 0) {
-//             $("h2").text("Time is Out!");
-//             $("div").append("<p>");
-//             $("p").text("Correct answer was " + answer);
-//             unansweredQuestions += 1;
-//             clearInterval(timerForDisplay);
-//             $("button").remove();
-//             options = [];
-//             setTimeout(secondQuestion, 3*1000);
-//         } else {
-//             questionTimer -= 1;
-//             $("span").text(questionTimer + " Seconds");
-//         }
-//     }
-// })
-
-// /////////////////////////////////////////////////////////Second Question//////////////////////////////////////////////////////////////
-
-// function secondQuestion() {
-//     question = "Whadfgsdgf?"
-//     $("h2").text(question);
-//     $("p").remove();
-//     var timerForDisplay = setInterval(timeDown, 1000);
-
-//     function timeDown() {
-//         if (questionTimer == 0) {
-//             $("h2").text("Time is Out!");
-//             $("div").append("<p>");
-//             $("p").text("Correct answer was " + answer);
-//             unansweredQuestions += 1;
-//             clearInterval(timerForDisplay);
-//             $("button").remove();
-//             options = [];
-//             setTimeout(resultScreen, 3*1000);
-//         } else {
-//             questionTimer -= 1;
-//             $("span").text(questionTimer + " Seconds");
-//         }
-//     }
-
-
-//     function initOptions() {
-//         var option1 = new Option("SF Pubdfgdfy");
-//         var option2 = new Option("jdfgdfgy");
-//         var option3 = new Option("Bodfgdfgrap");
-//         var option4 = new Option("Librdfgdfgngress");
-//         options.push(option1, option2, option3, option4);
-//     }
-//     initOptions();
-//     createOptions();
-//     answer = options[3].text;
-//     newTime();
-
-//     $(".option").on("click", function () {
-//         if ($(this).text() == answer) {
-//             $("h2").text("Correct!");
-//             correctAnswers += 1;
-//             clearInterval(timerForDisplay);
-//             $("button").remove();
-//             options = [];
-//             setTimeout(resultScreen, 3 * 1000);
-//         } else {
-//             $("h2").text("Nope!");
-//             $("div").append("<p>");
-//             $("p").text("Correct answer was " + answer);
-//             incorrectAnswers += 1;
-//             clearInterval(timerForDisplay);
-//             $("button").remove();
-//             options = [];
-//             setTimeout(resultScreen, 3 * 1000);
-//         }
-//     })
-
-
-// }
-
-// /////////////////////////////////Third Question ///////////////////////////////////////////////
-
-// ////////////////////////////////Finish Screen /////////////////////////////////////////////////
-
-// function resultScreen(){
-//     $("p").remove();
-//     $("h2").text("All done! Here's how you did");
-//     $("div").append("<p>");
-//     $("div p:last-child").text("Correct Answers: " + correctAnswers);
-//     $("div").append("<p>");
-//     $("div p:last-child").text("Incorrect Answers: " + incorrectAnswers);
-//     $("div").append("<p>");
-//     $("div p:last-child").text("Unanswered: " + unansweredQuestions);
-//     $("div").append("<button>");
-//     $("button").text("Start Over?")
-//     $("button").on("click", function() {
-//         $("div").empty();
-//         correctAnswers = 0;
-//         incorrectAnswers = 0;
-//         unansweredQuestions = 0;
-//         options = [];
-//         $("div").append("<h1>");
-//     $("h1").text("Totally Trivia Trivia!");
-//     $("div").append("<h3>");
-//     $("h3").text("Time remaining: ")
-//     $("h3").append("<span>");
-//     $("span").text(questionTimer + " Seconds")
-//     $("div").append("<h2>");
-//     $(this).remove();
-//     var timerForDisplay = setInterval(timeDown, 1000);
-//     firstQuestion();
-//     timeDown();
-
-//     $(".option").on("click", function () {
-//         if ($(this).text() == answer) {
-//             $("h2").text("Correct!");
-//             correctAnswers += 1;
-//             clearInterval(timerForDisplay);
-//             $("button").remove();
-//             options = [];
-//             setTimeout(secondQuestion, 3 * 1000);
-//         } else {
-//             $("h2").text("Nope!");
-//             $("div").append("<p>");
-//             $("p").text("Correct answer was " + answer);
-//             incorrectAnswers += 1;
-//             clearInterval(timerForDisplay);
-//             $("button").remove();
-//             options = [];
-//             setTimeout(secondQuestion, 3 * 1000);
-//         }
-//     })
-
-//     //set timer from 30 to 0
-//     function timeDown() {
-//         if (questionTimer == 0) {
-//             $("h2").text("Time is Out!");
-//             $("div").append("<p>");
-//             $("p").text("Correct answer was " + answer);
-//             unansweredQuestions += 1;
-//             clearInterval(timerForDisplay);
-//             $("button").remove();
-//             options = [];
-//             setTimeout(secondQuestion, 3*1000);
-//         } else {
-//             questionTimer -= 1;
-//             $("span").text(questionTimer + " Seconds");
-//         }
-//     }
-
-//     });
-
-// }
-var correctAnswers = 0;
-var incorrectAnswers = 0;
-var unansweredQuestions = 0;
-var questionTimer;
-var counter = 0;
-
+//create all questions like objects
 var allQuestions = [
     {
-        question: "What library was created for CSS",
+        question: "What library was created for CSS?",
         options: ["SF Public Library", "jQuery", "Bootstrap", "Library of Congress"],
         answer: "Bootstrap",
     },
 
     {
-        question: "Im a second question",
-        options: ["SF Public Library", "jQuery", "Bootstrap", "Library of Congress"],
-        answer: "jQuery",
+        question: "Which sign works with jQuery?",
+        options: ["$", "Stop", "%", "!"],
+        answer: "$",
     },
     {
-        question: "Im a beetween question",
-        options: ["SF Public Library", "jQuery", "Bootstrap", "Library of Congress"],
-        answer: "jQuery",
+        question: "What sign we need to use for choosing element with ID in CSS?",
+        options: ["{", "*", "&", "#"],
+        answer: "#",
     },
     {
-        question: "Im a third question",
-        options: ["SF Public Library", "jQuery", "Bootstrap", "Library of Congress"],
-        answer: "jQuery",
+        question: "What function we need to use to make element cleared in jQuery?",
+        options: [".remove()", ".empty()", ".append()", ".text()"],
+        answer: ".empty()",
     },
     {
-        question: "Im a fourth question",
-        options: ["SF Public Library", "jQuery", "Bootstrap", "Library of Congress"],
-        answer: "jQuery",
+        question: "What we use to create an array?",
+        options: ["()", "{}", ":", "[]"],
+        answer: "[]",
     },
     {
-        question: "Im a fifth question",
-        options: ["SF Public Library", "jQuery", "Bootstrap", "Library of Congress"],
-        answer: "jQuery",
+        question: "Which Of The HTML5 Elements Support Media Content?",
+        options: ["<audio>", "<video>", "<track>", "All of them"],
+        answer: "All of them",
+    },
+    {
+        question: "How many components in CSS Box Model?",
+        options: ["4", "2", "7", "5"],
+        answer: "4",
+    },
+    {
+        question: "Choose a boolean",
+        options: ["73", "Table", "undefined", "false"],
+        answer: "false",
+    },
+    {
+        question: "What option is Popup Box available In JavaScript?",
+        options: ["alert", "confirm", "prompt", "All of them"],
+        answer: "All of them",
+    },
+    {
+        question: "What we use to declare a variable?",
+        options: ["=", "==", "===", "Any of them"],
+        answer: "=",
     },
 ];
 
+//function for making every question
 function createQuestion() {
 
     $("button").remove();
@@ -285,19 +74,7 @@ function createQuestion() {
     }
 }
 
-$(document).on("click", ".option", function () {
-    var userChoice = $(this).val();
-    if (userChoice == allQuestions[counter].answer) {
-        correctAnswers += 1;
-        clearInterval(timerForDisplay);
-        setTimeout(nextQuestion, 3000);
-    } else {
-        clearInterval(timerForDisplay);
-        incorrectAnswers += 1;
-        setTimeout(nextQuestion, 3000);
-    }
-})
-
+//function for message with results
 function resultScreen() {
     $("button").remove();
     $("h2").text("All done! Here's how you did:");
@@ -312,7 +89,7 @@ function resultScreen() {
     $("button").attr("id", "start");
 }
 
-
+//function for swithing between questions
 function nextQuestion() {
     if (counter == allQuestions.length - 1) {
         resultScreen();
@@ -326,6 +103,7 @@ function nextQuestion() {
     }
 }
 
+//timer function
 function timeDown() {
     if (questionTimer == 0) {
         $("h2").text("Time is Out!");
@@ -341,7 +119,8 @@ function timeDown() {
     }
 }
 
-//works for all buttons with id "start"
+//function for start 
+//works for all buttons with id "start" (old one and new in results)
 $(document).on('click', '#start', function () {
     timerForDisplay = setInterval(timeDown, 1000);
     //clean div for every question
@@ -361,3 +140,16 @@ $(document).on('click', '#start', function () {
     createQuestion();
 })
 
+//function for answering
+$(document).on("click", ".option", function () {
+    var userChoice = $(this).val();
+    if (userChoice == allQuestions[counter].answer) {
+        correctAnswers += 1;
+        clearInterval(timerForDisplay);
+        setTimeout(nextQuestion, 3000);
+    } else {
+        clearInterval(timerForDisplay);
+        incorrectAnswers += 1;
+        setTimeout(nextQuestion, 3000);
+    }
+})

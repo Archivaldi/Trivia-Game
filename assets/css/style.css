@@ -11,3 +11,20 @@
     border: 5px solid blue;
     background-color: aqua;
 }
+
+body {
+    background-image: url(../images/bodyBack.jpg);
+    background-size: 100%;
+    background-repeat: no-repeat;
+    
+}
+
+div {
+    margin-top: 150px;
+    background-color: #c3d6d0;
+    width: 75%;
+    height: 500px;
+}
+#start {
+    margin-top: 245px;
+}

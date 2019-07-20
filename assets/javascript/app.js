@@ -71,6 +71,7 @@ function createQuestion() {
         $("div button:last-child").text(allQuestions[counter].options[p]);
         $("div button:last-child").attr("value", allQuestions[counter].options[p]);
         $("div button:last-child").attr("class", "option");
+        $("div button:last-child").attr("disabled", false);
     }
 }
 
@@ -145,9 +146,11 @@ $(document).on("click", ".option", function () {
     var userChoice = $(this).val();
     if (userChoice == allQuestions[counter].answer) {
         correctAnswers += 1;
+        $("button").attr("disabled", true);
         clearInterval(timerForDisplay);
         setTimeout(nextQuestion, 3000);
     } else {
+        $("button").attr("disabled", true);
         clearInterval(timerForDisplay);
         incorrectAnswers += 1;
         setTimeout(nextQuestion, 3000);

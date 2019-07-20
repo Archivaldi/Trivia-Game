@@ -232,74 +232,11 @@
 //     });
 
 // }
-
 var correctAnswers = 0;
 var incorrectAnswers = 0;
 var unansweredQuestions = 0;
 var questionTimer;
 var counter = 0;
-
-function nextQuestion() {
-    if (counter == allQuestions.length - 1) {
-        resultScreen();
-    } else {
-        counter += 1;
-        createQuestion();
-    }
-}
-
-function resultScreen() {
-    $("button").remove();
-    $("h2").text("All done! Here's how you did:");
-    $("div").append("<p>");
-    $("div p:last-child").text("Correct answers: " + correctAnswers);
-    $("div").append("<p>");
-    $("div p:last-child").text("Incorrect answers: " + incorrectAnswers);
-    $("div").append("<p>");
-    $("div p:last-child").text("Unanswered: " + unansweredQuestions);
-    $("div").append("<button>");
-    $("button").text("Again?");
-    $("button").attr("id", "start");
-    $("#start").on("click", function () {
-        //clean div for every question
-        correctAnswers = 0;
-        incorrectAnswers = 0;
-        unansweredQuestions = 0;
-        counter = 0;
-    
-        $("div").empty();
-        $("div").append("<h1>");
-        $("h1").text("Totally Trivia Trivia!");
-        $("div").append("<h3>");
-        $("h3").text("Time remaining: ")
-        $("h3").append("<span>");
-        $("span").text(questionTimer + " Seconds")
-        $("div").append("<h2>");
-        createQuestion();
-})
-}
-
-function createQuestion() {
-    $("button").remove();
-    $("h2").text(allQuestions[counter].question);
-
-    for (var p = 0; p < allQuestions[counter].options.length; p++) {
-        $("div").append("<button>");
-        $("div button:last-child").text(allQuestions[counter].options[p]);
-        $("div button:last-child").attr("value", allQuestions[counter].options[p]);
-    }
-
-    $("button").on("click", function () {
-        var userChoice = $(this).val();
-        if (userChoice == allQuestions[counter].answer) {
-            correctAnswers += 1;
-            nextQuestion();
-        } else {
-            incorrectAnswers += 1;
-            nextQuestion();
-        }
-    })
-}
 
 var allQuestions = [
     {
@@ -335,13 +272,84 @@ var allQuestions = [
     },
 ];
 
-$("#start").on("click", function () {
+function createQuestion() {
+
+    $("button").remove();
+    $("h2").text(allQuestions[counter].question);
+
+    for (var p = 0; p < allQuestions[counter].options.length; p++) {
+        $("div").append("<button>");
+        $("div button:last-child").text(allQuestions[counter].options[p]);
+        $("div button:last-child").attr("value", allQuestions[counter].options[p]);
+        $("div button:last-child").attr("class", "option");
+    }
+}
+
+$(document).on("click", ".option", function () {
+    var userChoice = $(this).val();
+    if (userChoice == allQuestions[counter].answer) {
+        correctAnswers += 1;
+        clearInterval(timerForDisplay);
+        setTimeout(nextQuestion, 3000);
+    } else {
+        clearInterval(timerForDisplay);
+        incorrectAnswers += 1;
+        setTimeout(nextQuestion, 3000);
+    }
+})
+
+function resultScreen() {
+    $("button").remove();
+    $("h2").text("All done! Here's how you did:");
+    $("div").append("<p>");
+    $("div p:last-child").text("Correct answers: " + correctAnswers);
+    $("div").append("<p>");
+    $("div p:last-child").text("Incorrect answers: " + incorrectAnswers);
+    $("div").append("<p>");
+    $("div p:last-child").text("Unanswered: " + unansweredQuestions);
+    $("div").append("<button>");
+    $("button").text("Again?");
+    $("button").attr("id", "start");
+}
+
+
+function nextQuestion() {
+    if (counter == allQuestions.length - 1) {
+        resultScreen();
+    } else {
+        questionTimer = 30;
+        $("span").text(questionTimer + " Seconds");
+        timerForDisplay = setInterval(timeDown, 1000);
+        counter += 1;
+        $("p").remove();
+        createQuestion();
+    }
+}
+
+function timeDown() {
+    if (questionTimer == 0) {
+        $("h2").text("Time is Out!");
+        $("div").append("<p>");
+        $("p").text("Correct answer was " + allQuestions[counter].answer);
+        unansweredQuestions += 1;
+        clearInterval(timerForDisplay);
+        $("button").remove();
+        setTimeout(nextQuestion, 3000);
+    } else {
+        questionTimer -= 1;
+        $("span").text(questionTimer + " Seconds");
+    }
+}
+
+//works for all buttons with id "start"
+$(document).on('click', '#start', function () {
+    timerForDisplay = setInterval(timeDown, 1000);
     //clean div for every question
     correctAnswers = 0;
     incorrectAnswers = 0;
     unansweredQuestions = 0;
     counter = 0;
-
+    questionTimer = 30;
     $("div").empty();
     $("div").append("<h1>");
     $("h1").text("Totally Trivia Trivia!");
@@ -351,19 +359,5 @@ $("#start").on("click", function () {
     $("span").text(questionTimer + " Seconds")
     $("div").append("<h2>");
     createQuestion();
-
-    function timeDown() {
-        if (questionTimer == 0) {
-            $("h2").text("Time is Out!");
-            $("div").append("<p>");
-            $("p").text("Correct answer was " + answer);
-            unansweredQuestions += 1;
-            clearInterval(timerForDisplay);
-            $("button").remove();
-            options = [];
-        } else {
-            questionTimer -= 1;
-            $("span").text(questionTimer + " Seconds");
-        }
-    }
 })
+

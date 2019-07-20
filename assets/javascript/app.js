@@ -106,7 +106,7 @@ function nextQuestion() {
     if (counter == allQuestions.length - 1) {
         resultScreen();
     } else {
-        questionTimer = 30;
+        questionTimer = 10;
         $("span").text(questionTimer + " Seconds");
         timerForDisplay = setInterval(timeDown, 1000);
         counter += 1;
@@ -143,7 +143,7 @@ $(document).on('click', '#start', function () {
     incorrectAnswers = 0;
     unansweredQuestions = 0;
     counter = 0;
-    questionTimer = 30;
+    questionTimer = 10;
     $("div").empty();
     $("div").append("<h1>");
     $("h1").text("Totally Trivia Trivia!");

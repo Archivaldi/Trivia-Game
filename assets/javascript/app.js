@@ -11,59 +11,69 @@ var allQuestions = [
         question: "What library was created for CSS?",
         options: ["SF Public Library", "jQuery", "Bootstrap", "Library of Congress"],
         answer: "Bootstrap",
+        gifCard: "assets/images/bootstrap.gif"
     },
 
     {
         question: "Which sign works with jQuery?",
         options: ["$", "Stop", "%", "!"],
         answer: "$",
+        gifCard: "assets/images/dollar.gif"
     },
     {
         question: "What sign we need to use for choosing element with ID in CSS?",
         options: ["{", "*", "&", "#"],
         answer: "#",
+        gifCard: "assets/images/hashtag.gif"
     },
     {
         question: "What function we need to use to make element cleared in jQuery?",
         options: [".remove()", ".empty()", ".append()", ".text()"],
         answer: ".empty()",
+        gifCard: "assets/images/empty.gif"
     },
     {
         question: "What we use to create an array?",
         options: ["()", "{}", ":", "[]"],
         answer: "[]",
+        gifCard: "assets/images/brackets.gif"
     },
     {
         question: "Which Of The HTML5 Elements Support Media Content?",
         options: ["<audio>", "<video>", "<track>", "All of them"],
         answer: "All of them",
+        gifCard: "assets/images/allOfThem.gif"
     },
     {
         question: "How many components in CSS Box Model?",
         options: ["4", "2", "7", "5"],
         answer: "4",
+        gifCard: "assets/images/four.gif"
     },
     {
         question: "Choose a boolean",
         options: ["73", "Table", "undefined", "false"],
         answer: "false",
+        gifCard: "assets/images/false.gif"
     },
     {
         question: "What option is Popup Box available In JavaScript?",
         options: ["alert", "confirm", "prompt", "All of them"],
         answer: "All of them",
+        gifCard: "assets/images/everyone.gif"
     },
     {
         question: "What we use to declare a variable?",
         options: ["=", "==", "===", "Any of them"],
         answer: "=",
+        gifCard: "assets/images/equal.gif"
     },
 ];
 
 //function for making every question
 function createQuestion() {
 
-    $("button").remove();
+    $("img").remove();
     $("h2").text(allQuestions[counter].question);
 
     for (var p = 0; p < allQuestions[counter].options.length; p++) {
@@ -77,6 +87,7 @@ function createQuestion() {
 
 //function for message with results
 function resultScreen() {
+    $("img").remove();
     $("button").remove();
     $("h2").text("All done! Here's how you did:");
     $("div").append("<p>");
@@ -100,6 +111,7 @@ function nextQuestion() {
         timerForDisplay = setInterval(timeDown, 1000);
         counter += 1;
         $("p").remove();
+        $("img").remove();
         createQuestion();
     }
 }
@@ -111,9 +123,11 @@ function timeDown() {
         $("div").append("<p>");
         $("p").text("Correct answer was " + allQuestions[counter].answer);
         unansweredQuestions += 1;
+        $("div").append("<img>");
+        $("img").attr("src", allQuestions[counter].gifCard)
         clearInterval(timerForDisplay);
         $("button").remove();
-        setTimeout(nextQuestion, 3000);
+        setTimeout(nextQuestion, 5000);
     } else {
         questionTimer -= 1;
         $("span").text(questionTimer + " Seconds");
@@ -146,13 +160,23 @@ $(document).on("click", ".option", function () {
     var userChoice = $(this).val();
     if (userChoice == allQuestions[counter].answer) {
         correctAnswers += 1;
+        $("button").remove();
+        $("h2").text("Correct!");
+        $("div").append("<img>");
+        $("img").attr("src", allQuestions[counter].gifCard)
         $("button").attr("disabled", true);
         clearInterval(timerForDisplay);
-        setTimeout(nextQuestion, 3000);
+        setTimeout(nextQuestion, 5000);
     } else {
+        $("button").remove();
+        $("h2").text("Nope!");
+        $("div").append("<p>");
+        $("p").text("Correct answer was " + allQuestions[counter].answer);
+        $("div").append("<img>");
+        $("img").attr("src", allQuestions[counter].gifCard)
         $("button").attr("disabled", true);
         clearInterval(timerForDisplay);
         incorrectAnswers += 1;
-        setTimeout(nextQuestion, 3000);
+        setTimeout(nextQuestion, 5000);
     }
 })
